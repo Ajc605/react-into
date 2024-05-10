@@ -20,18 +20,20 @@ const SearchParams = () => {
     const [adoptedPet] = useContext(AdoptedPetContext);
 
     return (
-        <div className='search-params'>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const obj = {
-                    animal: formData.get("animal") ?? "",
-                    breed: formData.get("breed") ?? "",
-                    location: formData.get("location") ?? "",
-                }
+        <div className='my-0 mx-auto w-11/12'>
+            <form
+                className="p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-center items-center"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    const obj = {
+                        animal: formData.get("animal") ?? "",
+                        breed: formData.get("breed") ?? "",
+                        location: formData.get("location") ?? "",
+                    }
 
-                setRequestParas(obj)
-            }} >
+                    setRequestParas(obj)
+                }} >
                 {
                     adoptedPet ? (
                         <div className="pet image-container">
@@ -42,8 +44,10 @@ const SearchParams = () => {
                 <label htmlFor='location'>
                     Locations
                     <input
+                        type='text'
                         name="location"
                         id='location'
+                        className="search-input"
                         placeholder='Location'
                     />
                 </label>
@@ -51,6 +55,7 @@ const SearchParams = () => {
                     Animal
                     <select
                         id='animal'
+                        className="search-input"
                         value={animal}
                         onChange={(e) => {
                             setAnimal(e.target.value);
@@ -66,15 +71,17 @@ const SearchParams = () => {
                     Breed
                     <select
                         id='breed'
+                        className="search-input grayed-out-disable "
                         disabled={breeds.length === 0}
                         name="breed"
                     >
+                        <option />
                         {breeds.map((breed) => (
                             <option key={breed}>{breed}</option>
                         ))}
                     </select>
-                    <button>Submit</button>
                 </label>
+                <button className="rounded px-6 py-2 text-white hover:opacity-50 border-none bg-orange-500">Submit</button>
             </form>
             <Results pets={pets} />
         </div >
